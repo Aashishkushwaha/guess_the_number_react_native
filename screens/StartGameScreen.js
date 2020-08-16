@@ -3,17 +3,16 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
 } from "react-native";
 import Card from "../components/Card";
 import Input from "../components/Input";
-import COLORS from "../constants/colors";
 import NumberContainer from "../components/NumberContainer";
 import BodyText from "../components/BodyText";
 import DefaultStyles from "../constants/default-styles";
+import MainButton from "../components/MainButton";
 
 const StartGameScreen = ({ onStartGame }) => {
   const [enteredValue, setEnteredValue] = useState("");
@@ -51,10 +50,9 @@ const StartGameScreen = ({ onStartGame }) => {
       <Card style={styles.summaryContainer}>
         <Text>You Selected</Text>
         <NumberContainer>{selectedNumber}</NumberContainer>
-        <Button
-          title="START GAME"
-          onPress={() => onStartGame(selectedNumber)}
-        />
+        <MainButton type="primary" onPress={() => onStartGame(selectedNumber)}>
+          START GAME
+        </MainButton>
       </Card>
     );
   }
@@ -79,20 +77,10 @@ const StartGameScreen = ({ onStartGame }) => {
             onChangeText={numberInputHandler}
           />
           <View style={styles.buttonContainer}>
-            <View style={styles.button}>
-              <Button
-                title="Reset"
-                color={COLORS.secondary}
-                onPress={resetInputHandler}
-              />
-            </View>
-            <View style={styles.button} onPress={() => {}}>
-              <Button
-                title="Confirm"
-                color={COLORS.primary}
-                onPress={confirmInputHandler}
-              />
-            </View>
+            <MainButton type="primary" onPress={resetInputHandler}>
+              RESET
+            </MainButton>
+            <MainButton onPress={confirmInputHandler}>CONFIRM</MainButton>
           </View>
         </Card>
         {confirmedOutput}
@@ -123,12 +111,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
-    paddingHorizontal: 15,
-  },
-  button: {
-    width: "40%",
-    borderRadius: 10,
   },
   summaryContainer: {
     marginTop: 20,
