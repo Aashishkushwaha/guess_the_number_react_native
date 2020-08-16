@@ -1,7 +1,9 @@
 import React from "react";
-import { View, Image, StyleSheet, Button, Text } from "react-native";
+import { View, Image, StyleSheet, Text } from "react-native";
 import BodyText from "../components/BodyText";
+import MainButton from "../components/MainButton";
 import DefaultStyles from "../constants/default-styles";
+import COLORS from "../constants/colors";
 
 const GameOverScreen = ({ numberOfRounds, userNumber, onRestartGame }) => {
   return (
@@ -11,19 +13,26 @@ const GameOverScreen = ({ numberOfRounds, userNumber, onRestartGame }) => {
         <Image
           style={styles.image}
           // local image : doesn't require height & width to specify
-          // source={require("../assets/success.png")}
+          source={require("../assets/success.png")}
           // network image : require height & width to specify
-          source={{
-            uri:
-              "https://images.unsplash.com/photo-1515552726023-7125c8d07fb3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-          }}
+          // source={{
+          //   uri:
+          //     "https://images.unsplash.com/photo-1515552726023-7125c8d07fb3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
+          // }}
           fadeDuration={1000}
           resizeMode={"cover"}
         />
       </View>
-      <BodyText>No. of Rounds took: {numberOfRounds}</BodyText>
-      <BodyText>Number was : {userNumber}</BodyText>
-      <Button title="New Game" onPress={onRestartGame} />
+      <View style={styles.resultTextContainer}>
+        <BodyText style={styles.resultText}>
+          You took <Text style={styles.highlight}>{numberOfRounds}</Text>{" "}
+          chances to guess the number{" "}
+          <Text style={styles.highlight}>{userNumber}</Text>.
+        </BodyText>
+      </View>
+      <MainButton type="secondary" onPress={onRestartGame}>
+        NEW GAME
+      </MainButton>
     </View>
   );
 };
@@ -42,11 +51,23 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#000000",
     overflow: "hidden",
-    marginVertical: 30,
+    marginTop: 20,
   },
   image: {
     width: "100%",
     height: "100%",
+  },
+  resultTextContainer: {
+    marginHorizontal: 30,
+    marginVertical: 10,
+  },
+  resultText: {
+    textAlign: "center",
+    fontSize: 20,
+  },
+  highlight: {
+    fontFamily: "open-sans-bold",
+    color: COLORS.primary,
   },
 });
 
